@@ -1,8 +1,8 @@
 {
-  "name": "com.mnarimani.ZenExtended",
+  "name": "com.mnarimani.zenextended",
   "displayName": "ZenExtended",
   "version": "1.0.0",
-  "unity": "2020",
+  "unity": "2020.1",
   "license": "MIT",
   "dependencies": {
     "com.svermeulen.extenject": "9.0.2"
