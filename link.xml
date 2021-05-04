@@ -1,0 +1,5 @@
+﻿<linker>
+    <assembly fullname="ZenExtended">
+        <type fullname="*Spawnable*/Factory*" preserve="all" />
+    </assembly>
+</linker>
