@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+using System;
 using Zenject;
 
 namespace ZenExtended
 {
-    public abstract class MonoSpawnable<TClass> : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable
+    public abstract class Spawnable<TClass> : IPoolable<IMemoryPool>, IDisposable
     {
         private IMemoryPool _pool;
         private bool _isPooled;
@@ -31,17 +30,10 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
-                return;
-
             if (_isPooled)
             {
                 _pool?.Despawn(this);
                 _pool = null;
-            }
-            else
-            {
-                Destroy(gameObject);
             }
         }
 
@@ -51,7 +43,7 @@ namespace ZenExtended
         }
     }
 
-    public abstract class MonoSpawnable<TParam1, TClass> : MonoBehaviour, IPoolable<TParam1, IMemoryPool>, IDisposable
+    public abstract class Spawnable<TParam1, TClass> : IPoolable<TParam1, IMemoryPool>, IDisposable
     {
         private IMemoryPool _pool;
         private bool _isPooled;
@@ -78,17 +70,10 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
-                return;
-
             if (_isPooled)
             {
                 _pool?.Despawn(this);
                 _pool = null;
-            }
-            else
-            {
-                Destroy(gameObject);
             }
         }
 
@@ -98,7 +83,7 @@ namespace ZenExtended
         }
     }
 
-    public abstract class MonoSpawnable<TParam1, TParam2, TClass> : MonoBehaviour, IPoolable<TParam1, TParam2, IMemoryPool>, IDisposable
+    public abstract class Spawnable<TParam1, TParam2, TClass> : IPoolable<TParam1, TParam2, IMemoryPool>, IDisposable
     {
         private IMemoryPool _pool;
         private bool _isPooled;
@@ -125,17 +110,10 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
-                return;
-
             if (_isPooled)
             {
                 _pool?.Despawn(this);
                 _pool = null;
-            }
-            else
-            {
-                Destroy(gameObject);
             }
         }
 
