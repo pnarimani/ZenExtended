@@ -3,8 +3,16 @@ using System;
 using UnityEngine.UI;
 using YoYoStudio.OpenJuice;
 
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
+
 namespace ZenExtended
 {
+#if ODIN_INSPECTOR
+    [InlineProperty]
+    [HideLabel]
+#endif
     [Serializable]
     internal class AnimatedPanelComponents
     {

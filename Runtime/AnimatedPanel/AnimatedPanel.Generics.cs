@@ -1,4 +1,5 @@
 #if OPEN_JUICE && UNITASK
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -8,19 +9,28 @@ namespace ZenExtended
     {
         [SerializeField] private AnimatedPanelComponents _animatedPanel;
 
-        private AnimatedPanelLogic _logic;
+        private AnimatedPanelLogic? _logic;
 
-        public float TransitionDuration => _logic.TransitionDuration;
+        private AnimatedPanelLogic Logic
+        {
+            get
+            {
+                if (_logic == null)
+                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                return _logic.Value;
+            }
+        }
+
+        public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
-            _logic.Awake();
+            Logic.Awake();
         }
 
         protected virtual void OnEnable()
         {
-            _logic.OnEnable();
+            Logic.OnEnable();
         }
 
         /// <summary>
@@ -29,7 +39,7 @@ namespace ZenExtended
         /// </summary>
         public void CloseAnimated()
         {
-            _logic.OnCloseClicked().Forget();
+            Logic.OnCloseClicked().Forget();
         }
 
         /// <summary>
@@ -37,107 +47,139 @@ namespace ZenExtended
         /// </summary>
         public UniTask WaitUntilCloseClicked()
         {
-            return _logic.WaitUntilCloseClick();
+            return Logic.WaitUntilCloseClick();
         }
     }
 
     public class AnimatedPanel<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedPanel
     {
         [SerializeField] private AnimatedPanelComponents _animatedPanel;
-        private AnimatedPanelLogic _logic;
 
-        public float TransitionDuration => _logic.TransitionDuration;
+        private AnimatedPanelLogic? _logic;
+
+        private AnimatedPanelLogic Logic
+        {
+            get
+            {
+                if (_logic == null)
+                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                return _logic.Value;
+            }
+        }
+
+        public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
-            _logic.Awake();
+            Logic.Awake();
         }
 
         protected virtual void OnEnable()
         {
-            _logic.OnEnable();
+            Logic.OnEnable();
         }
-        
+
         /// <summary>
         /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
         {
-            _logic.OnCloseClicked().Forget();
+            Logic.OnCloseClicked().Forget();
         }
-        
+
         /// <summary>
         /// Waits until the close button is clicked (or <see cref="CloseAnimated"/> is called)
         /// </summary>
         public UniTask WaitUntilCloseClicked()
         {
-            return _logic.WaitUntilCloseClick();
+            return Logic.WaitUntilCloseClick();
         }
     }
 
     public class AnimatedPanel<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedPanel
     {
         [SerializeField] private AnimatedPanelComponents _animatedPanel;
-        private AnimatedPanelLogic _logic;
 
-        public float TransitionDuration => _logic.TransitionDuration;
+        private AnimatedPanelLogic? _logic;
+
+        private AnimatedPanelLogic Logic
+        {
+            get
+            {
+                if (_logic == null)
+                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                return _logic.Value;
+            }
+        }
+
+        public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
             _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
-            _logic.Awake();
+            Logic.Awake();
         }
 
         protected virtual void OnEnable()
         {
-            _logic.OnEnable();
+            Logic.OnEnable();
         }
-        
+
         /// <summary>
         /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
-           /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TClass}.Dispose"/>.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
         {
-            _logic.OnCloseClicked().Forget();
+            Logic.OnCloseClicked().Forget();
         }
-        
+
         /// <summary>
         /// Waits until the close button is clicked (or <see cref="CloseAnimated"/> is called)
         /// </summary>
         public UniTask WaitUntilCloseClicked()
         {
-            return _logic.WaitUntilCloseClick();
+            return Logic.WaitUntilCloseClick();
         }
     }
 
     public class AnimatedPanel<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedPanel
     {
         [SerializeField] private AnimatedPanelComponents _animatedPanel;
-        private AnimatedPanelLogic _logic;
 
-        public float TransitionDuration => _logic.TransitionDuration;
+        private AnimatedPanelLogic? _logic;
+
+        private AnimatedPanelLogic Logic
+        {
+            get
+            {
+                if (_logic == null)
+                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                return _logic.Value;
+            }
+        }
+
+        public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
             _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
-            _logic.Awake();
+            Logic.Awake();
         }
 
         protected virtual void OnEnable()
         {
-            _logic.OnEnable();
+            Logic.OnEnable();
         }
-        
+
         /// <summary>
         /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TParma3, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
         {
-            _logic.OnCloseClicked().Forget();
+            Logic.OnCloseClicked().Forget();
         }
 
         /// <summary>
@@ -145,7 +187,7 @@ namespace ZenExtended
         /// </summary>
         public UniTask WaitUntilCloseClicked()
         {
-            return _logic.WaitUntilCloseClick();
+            return Logic.WaitUntilCloseClick();
         }
     }
 }
