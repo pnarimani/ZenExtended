@@ -1,4 +1,4 @@
-#if USE_UNITASK
+#if UNITASK
 
 using Cysharp.Threading.Tasks;
 using Zenject;

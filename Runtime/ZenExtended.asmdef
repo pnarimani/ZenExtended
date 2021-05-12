@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Zenject",
-        "UniTask"
+        "UniTask",
+        "Juicer.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -16,7 +17,17 @@
         {
             "name": "com.cysharp.unitask",
             "expression": "",
-            "define": "USE_UNITASK"
+            "define": "UNITASK"
+        },
+        {
+            "name": "com.yoyo-studio.openjuice",
+            "expression": "",
+            "define": "OPEN_JUICE"
+        },
+        {
+            "name": "com.dbrizov.naughtyattributes",
+            "expression": "",
+            "define": "NAUGHTY_ATTRIBUTES"
         }
     ],
     "noEngineReferences": false
