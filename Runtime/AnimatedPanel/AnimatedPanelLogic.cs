@@ -43,11 +43,12 @@ namespace ZenExtended
         public void OnEnable()
         {
             RestoreTransformState(_primaryTransition);
-            _primaryTransition.PlayAsync();
+            _primaryTransition.Play();
 
             foreach (BaseTransition t in _secondaryTransitions)
             {
                 RestoreTransformState(t);
+                t.Play();
             }
         }
 
@@ -75,6 +76,14 @@ namespace ZenExtended
                 }
             }
 
+            foreach (BaseTransition t in _secondaryTransitions)
+            {
+                // We don't await here because:
+                // 1. We want all secondary transitions to play at once
+                // 2. We want to call dispose only after the primary transition has ended.
+                // ReSharper disable once MethodHasAsyncOverload
+                t.PlayReverse();
+            }
             await _primaryTransition.PlayReverseAsync();
             _dispose();
         }

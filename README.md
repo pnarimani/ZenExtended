@@ -143,8 +143,9 @@ public virtual void Dispose();
 ## AnimatedPanel
 Animated panels are available if you have `OpenJuice` and `UniTask` libraries.  
 `AnimatedPanel` will be disabled if you don't have either of those libraries.  
-You can install these libraries from here:
-
+You can install these libraries from here:  
+* [Install Open Juice](https://github.com/yoyo-studio/openjuice#installation)
+* [Install UniTask](https://github.com/Cysharp/UniTask#install-via-git-url)
 
 `AnimatedPanel` is a base class that inherits from `MonoSpawnable`.  
 It adds support to play Intro and Outro animations using `OpenJuice` transitions for an UI panel.
@@ -168,6 +169,9 @@ public UniTask WaitUntilCloseClicked();
 ```
 
 You can use `AnimatedPanel` in two ways:  
+* Inheritance
+* Composition
+
 ### Inheritance
 Your main class for that panel should inherit from `AnimatedPanel` (`AnimatedPanel` has generic variations that support runtime parameters).
 Closing the panel is handled by`AnimatedPanel`. It defines a field named "Close Button". Drag and drop your Close button to this field. 
