@@ -7,7 +7,26 @@ Utility classes for Zenject library to remove some of boilerplate code.
 - [Animated Panel](#animatedpanel)
 - [View Presenter Binder](#viewpresenterbinder)
 
-## MonoSpawnable
+## Installation
+Add `https://github.com/mnarimani/Audoty.git` as git url package in Package Manager window.
+
+Or add this line to your `manifest.json` file:  
+`"com.mnarimani.zenextended": "https://github.com/mnarimani/ZenExtended.git"`
+
+### Requirements
+`ZenExtended` requires [Zenject](https://github.com/mnarimani/Extenject.git) library. It also has integrations with [UniTask](https://github.com/Cysharp/UniTask), [OpenJuice](https://github.com/yoyo-studio/openjuice) and [Naughty Attributes](https://github.com/dbrizov/NaughtyAttributes).
+
+You can install everything with adding following lines to `manifest.json`:
+```
+"com.mnarimani.zenextended": "https://github.com/mnarimani/ZenExtended.git",
+"com.svermeulen.extenject": "https://github.com/mnarimani/Extenject.git?path=UnityProject/Assets/Plugins/Zenject#no_samples",
+"com.yoyo-studio.openjuice": "https://github.com/yoyo-studio/openjuice.git?path=Assets/YoYoStudio/OpenJuice",
+"com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+"com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm" 
+```
+
+## Classes
+### MonoSpawnable
 This is a base class used for all MonoBehaviours that get spawned/created in runtime.  
 This class has nested `Factory` class and it also implements all the required methods for Pooling in Zenject.  
 Your main class (Facade pattern in SubContainers or the main component on a prefab) should inherit from this class.  
@@ -29,9 +48,9 @@ protected virtual void OnPoolDespawned();
 public virtual void Dispose();
 ```
 
-#### **It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
+**It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
 
-### Example
+#### Example
 This is an example of a pooled object that is using `MonoSpawnable`:
 ```c#
 // Parameters to pass to Bullet
@@ -120,7 +139,7 @@ Player.Factory _factory;
 Player player = _factory.Create(new UserId("player1"));
 ```
 
-## Spawnable
+### Spawnable
 This is a base class used for all non-MonoBehaviours that get spawned/created in runtime.  
 Everything in this class is similar to `MonoSpawnable` class.  
 There are some methods that you can override when inheriting from this class:
@@ -141,12 +160,12 @@ protected virtual void OnPoolDespawned();
 public virtual void Dispose();
 ```
 
-#### **It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
+**It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
 
-### Example
+#### Example
 
 
-## AnimatedPanel
+### AnimatedPanel
 Animated panels are available if you have `OpenJuice` and `UniTask` libraries.  
 `AnimatedPanel` will be disabled if you don't have either of those libraries.  
 You can install these libraries from here:  
@@ -178,14 +197,14 @@ You can use `AnimatedPanel` in two ways:
 * Inheritance
 * Composition
 
-### Inheritance
+#### Inheritance
 Your main class for that panel should inherit from `AnimatedPanel` (`AnimatedPanel` has generic variations that support runtime parameters).
 Closing the panel is handled by`AnimatedPanel`. It defines a field named "Close Button". Drag and drop your Close button to this field. 
 
 
 
 
-### Composition
+#### Composition
 If you don't want to inherit from `AnimatedPanel`,You need to create a sub-container.
 
 1. You need to Attach `GameObjectContext` to the root of your prefab/gameobject.
@@ -194,10 +213,10 @@ If you don't want to inherit from `AnimatedPanel`,You need to create a sub-conta
 4. In your main class (which inherits from `MonoSpawnable`), listen to the `DisposeRequested` event of `AnimatedPanel`.
 5. When the event is called, call the `Dispose()` method of the base class `MonoSpawnable`.
 
-### Example
+#### Example
 
 
-## ViewPresenterBinder
+### ViewPresenterBinder
 When working with **MVP** pattern, often times your `View` creates the `Presenter` and your `Presenter` gets a reference to the `View` using an interface.
 
 This is a very small example of this pattern:
