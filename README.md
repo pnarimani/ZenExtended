@@ -9,7 +9,7 @@ There are some methods that you can override when inheriting from this class:
 
 ```c#
 // ONLY WORKS WHEN OBJECT IS POOLED. Gets invoked when object gets spawned from pool 
-protected virtual void OnPoolSpawned()
+protected virtual void OnPoolSpawned();
 // Other variations when inherting from variations of MonoSpawnable:
 // void OnPoolSpawned(TParam1 param1)
 // void OnPoolSpawned(TParam1 param1, TParam2 param2)
@@ -17,10 +17,10 @@ protected virtual void OnPoolSpawned()
 // void OnPoolSpawned(TParam1 param1, TParam2 param2, TParam3 param3, TParam4 param4)
 
 // ONLY WORKS WHEN OBJECT IS POOLED. Gets invoked when object gets despawned back to pool
-protected virtual void OnPoolDespawned()
+protected virtual void OnPoolDespawned();
 
 // Use this method to destroy the object. Works regardless of pooling. 
-public virtual void Dispose()
+public virtual void Dispose();
 ```
 
 #### **It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
@@ -121,7 +121,7 @@ There are some methods that you can override when inheriting from this class:
 
 ```c#
 // ONLY WORKS WHEN OBJECT IS POOLED. Gets invoked when object gets spawned from pool 
-protected virtual void OnPoolSpawned()
+protected virtual void OnPoolSpawned();
 // Other variations when inherting from variations of MonoSpawnable:
 // void OnPoolSpawned(TParam1 param1)
 // void OnPoolSpawned(TParam1 param1, TParam2 param2)
@@ -129,10 +129,10 @@ protected virtual void OnPoolSpawned()
 // void OnPoolSpawned(TParam1 param1, TParam2 param2, TParam3 param3, TParam4 param4)
 
 // ONLY WORKS WHEN OBJECT IS POOLED. Gets invoked when object gets despawned back to pool
-protected virtual void OnPoolDespawned()
+protected virtual void OnPoolDespawned();
 
 // Use this method to despawned a pooled object. This method does nothing if object is not pooled. (C# POCOs get garbage collected)  
-public virtual void Dispose()
+public virtual void Dispose();
 ```
 
 #### **It is good practice to always call `Dispose` to destroy an object regardless of pooling.**
@@ -152,19 +152,19 @@ It adds support to play Intro and Outro animations using `OpenJuice` transitions
 This is the API of `AnimatedPanel`:
 ```c#
 // If you want to do more initialization logic in Awake, override this method.
-// Don't forget to call base.Awake()
-protected virtual void Awake()
+// Don't forget to call base.Awake() if you override this method. 
+protected virtual void Awake();
 
 // If you want to do more initialization logic in OnEnable, override this method.
-// Don't forget to call base.OnEnable()
-protected virtual void OnEnable()
+// Don't forget to call base.OnEnable() if you override this method.
+protected virtual void OnEnable();
 
 // Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
 // If you don't want to play outro animations, use Dispose().
-public void CloseAnimated()
+public void CloseAnimated();
 
 // Waits until the close button is clicked (or CloseAnimated() is called).
-public UniTask WaitUntilCloseClicked()
+public UniTask WaitUntilCloseClicked();
 ```
 
 You can use `AnimatedPanel` in two ways:  
@@ -176,7 +176,12 @@ Closing the panel is handled by`AnimatedPanel`. It defines a field named "Close 
 
 
 ### Composition
-If you don't want to inherit from `AnimatedPanel`, You need to create a sub-container. Attach `GameObjectContext` to the root of   
-   Add `AnimatedPanel`(non-generic) to your gameobject. 
+If you don't want to inherit from `AnimatedPanel`,You need to create a sub-container.
+
+1. You need to Attach `GameObjectContext` to the root of your prefab/gameobject.
+2. Add `AnimatedPanel`(non-generic) to your prefab/gameobject.
+3. Install `AnimatedPanel` in your installer
+4. In your main class (which inherits from `MonoSpawnable`), listen to the `DisposeRequested` event of `AnimatedPanel`.
+5. When the event is called, call the `Dispose()` method of the base class `MonoSpawnable`.
 
 ### Example
