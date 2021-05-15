@@ -14,7 +14,7 @@ Or add this line to your `manifest.json` file:
 `"com.mnarimani.zenextended": "https://github.com/mnarimani/ZenExtended.git"`
 
 ### Requirements
-`ZenExtended` requires [Zenject](https://github.com/mnarimani/Extenject.git) library. It also has integrations with [UniTask](https://github.com/Cysharp/UniTask), [OpenJuice](https://github.com/yoyo-studio/openjuice) and [Naughty Attributes](https://github.com/dbrizov/NaughtyAttributes).
+`ZenExtended` requires [Zenject](https://github.com/mnarimani/Extenject.git) library. It also has optional integrations with [UniTask](https://github.com/Cysharp/UniTask), [OpenJuice](https://github.com/yoyo-studio/openjuice), [Naughty Attributes](https://github.com/dbrizov/NaughtyAttributes) and [Odin Inspector](https://odininspector.com).
 
 You can install everything with adding following lines to `manifest.json`:
 ```

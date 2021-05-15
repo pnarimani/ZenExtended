@@ -9,7 +9,7 @@ using YoYoStudio.OpenJuice;
 namespace ZenExtended
 {
     // Using this class as composition since we don't have multi inheritance in C# 
-    internal struct AnimatedPanelLogic
+    internal readonly struct AnimatedPanelLogic
     {
         private readonly Queue<AutoResetUniTaskCompletionSource> _waitForClose;
         private readonly GameObject _gameObject;
@@ -43,10 +43,15 @@ namespace ZenExtended
         public void OnEnable()
         {
             RestoreTransformState(_primaryTransition);
-            _primaryTransition.Play();
+
+            if (_primaryTransition != null)
+                _primaryTransition.Play();
 
             foreach (BaseTransition t in _secondaryTransitions)
             {
+                if (t == null)
+                    continue;
+                
                 RestoreTransformState(t);
                 t.Play();
             }
@@ -78,13 +83,19 @@ namespace ZenExtended
 
             foreach (BaseTransition t in _secondaryTransitions)
             {
+                if (t == null)
+                    continue;
+
                 // We don't await here because:
                 // 1. We want all secondary transitions to play at once
                 // 2. We want to call dispose only after the primary transition has ended.
                 // ReSharper disable once MethodHasAsyncOverload
                 t.PlayReverse();
             }
-            await _primaryTransition.PlayReverseAsync();
+
+            if (_primaryTransition != null)
+                await _primaryTransition.PlayReverseAsync();
+
             _dispose();
         }
 
@@ -104,6 +115,8 @@ namespace ZenExtended
 
         private void RestoreTransformState(BaseTransition transition)
         {
+            if (transition == null)
+                return;
             _originalStates[(RectTransform) transition.transform].ApplyTo((RectTransform) transition.transform);
         }
 
@@ -120,7 +133,7 @@ namespace ZenExtended
             {
                 if (t == null)
                     return;
-                
+
                 var casted = (RectTransform) t.transform;
                 if (!dict.ContainsKey(casted))
                     dict.Add(casted, new TransformInfo(casted));
