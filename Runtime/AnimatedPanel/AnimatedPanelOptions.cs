@@ -14,12 +14,17 @@ namespace ZenExtended
     [HideLabel]
 #endif
     [Serializable]
-    internal class AnimatedPanelComponents
+    internal class AnimatedPanelOptions
     {
 #if ODIN_INSPECTOR
         [BoxGroup("Animated Panel")]
 #endif
         public Button CloseButton;
+
+#if ODIN_INSPECTOR
+        [BoxGroup("Animated Panel")]
+#endif
+        public bool PlayReverseOnClose = true;
 
 #if ODIN_INSPECTOR
         [BoxGroup("Animated Panel")]

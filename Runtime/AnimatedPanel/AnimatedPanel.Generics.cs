@@ -7,7 +7,7 @@ namespace ZenExtended
 {
     public class AnimatedPanel<T> : MonoSpawnable<T>, IAnimatedPanel
     {
-        [SerializeField] private AnimatedPanelComponents _animatedPanel;
+        [SerializeField] private AnimatedPanelOptions _animatedPanel;
 
         private AnimatedPanelLogic? _logic;
 
@@ -53,7 +53,7 @@ namespace ZenExtended
 
     public class AnimatedPanel<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedPanel
     {
-        [SerializeField] private AnimatedPanelComponents _animatedPanel;
+        [SerializeField] private AnimatedPanelOptions _animatedPanel;
 
         private AnimatedPanelLogic? _logic;
 
@@ -99,7 +99,7 @@ namespace ZenExtended
 
     public class AnimatedPanel<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedPanel
     {
-        [SerializeField] private AnimatedPanelComponents _animatedPanel;
+        [SerializeField] private AnimatedPanelOptions _animatedPanel;
 
         private AnimatedPanelLogic? _logic;
 
@@ -146,7 +146,7 @@ namespace ZenExtended
 
     public class AnimatedPanel<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedPanel
     {
-        [SerializeField] private AnimatedPanelComponents _animatedPanel;
+        [SerializeField] private AnimatedPanelOptions _animatedPanel;
 
         private AnimatedPanelLogic? _logic;
 
