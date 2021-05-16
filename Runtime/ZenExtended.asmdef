@@ -4,7 +4,8 @@
     "references": [
         "Zenject",
         "UniTask",
-        "Juicer.Core"
+        "Juicer.Core",
+        "NaughtyAttributes.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

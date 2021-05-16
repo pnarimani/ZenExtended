@@ -1,0 +1,10 @@
+{
+  "name": "ZenExtended.Editor",
+  "references": [
+    "Zenject",
+    "ZenExtended"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}
