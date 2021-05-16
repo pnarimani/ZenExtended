@@ -2,6 +2,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ZenExtended
 {
@@ -21,6 +22,8 @@ namespace ZenExtended
             }
         }
 
+        protected Button CloseButton => _animatedPanel?.CloseButton;
+        
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -49,6 +52,13 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
+
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            Logic.ValidateTransitions();
+        }
+#endif
     }
 
     public class AnimatedPanel<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedPanel
@@ -66,7 +76,9 @@ namespace ZenExtended
                 return _logic.Value;
             }
         }
-
+        
+        protected Button CloseButton => _animatedPanel?.CloseButton;
+        
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -95,6 +107,13 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
+        
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            Logic.ValidateTransitions();
+        }
+#endif
     }
 
     public class AnimatedPanel<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedPanel
@@ -112,7 +131,7 @@ namespace ZenExtended
                 return _logic.Value;
             }
         }
-
+        protected Button CloseButton => _animatedPanel?.CloseButton;
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -142,6 +161,13 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
+        
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            Logic.ValidateTransitions();
+        }
+#endif
     }
 
     public class AnimatedPanel<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedPanel
@@ -159,7 +185,7 @@ namespace ZenExtended
                 return _logic.Value;
             }
         }
-
+        protected Button CloseButton => _animatedPanel?.CloseButton;
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -189,6 +215,13 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
+        
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            Logic.ValidateTransitions();
+        }
+#endif
     }
 }
 #endif

@@ -98,7 +98,7 @@ namespace ZenExtended
             _dispose();
         }
 
-        private void ValidateTransitions()
+        public void ValidateTransitions()
         {
             if (_options.PrimaryTransition != null)
                 _options.PrimaryTransition.PlayOnEnable = false;
@@ -107,7 +107,8 @@ namespace ZenExtended
             {
                 foreach (BaseTransition t in _options.SecondaryTransitions)
                 {
-                    t.PlayOnEnable = false;
+                    if (t != null)
+                        t.PlayOnEnable = false;
                 }
             }
         }
