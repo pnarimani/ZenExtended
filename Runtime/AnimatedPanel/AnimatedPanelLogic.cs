@@ -1,6 +1,7 @@
 #if UNITASK && OPEN_JUICE
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace ZenExtended
         private readonly Dictionary<RectTransform, TransformInfo> _originalStates;
         private readonly AnimatedPanelOptions _options;
         private readonly Action _dispose;
+        private readonly CancellationToken _cancellationToken;
 
         public AnimatedPanelLogic(GameObject gameObject, AnimatedPanelOptions options, Action dispose)
         {
@@ -24,6 +26,7 @@ namespace ZenExtended
             _waitForClose = new Queue<AutoResetUniTaskCompletionSource>();
             _originalStates = new Dictionary<RectTransform, TransformInfo>();
             _gameObject = gameObject;
+            _cancellationToken = gameObject.GetCancellationTokenOnDestroy();
         }
 
         public float TransitionDuration => _options.PrimaryTransition != null ? _options.PrimaryTransition.Duration + _options.PrimaryTransition.Delay : 0;
@@ -47,7 +50,7 @@ namespace ZenExtended
             }
 
             if (_options.PrimaryTransition != null)
-                _options.PrimaryTransition.Play();
+                _options.PrimaryTransition.Play(_cancellationToken);
 
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
@@ -55,7 +58,7 @@ namespace ZenExtended
                     continue;
 
                 RestoreTransformState(t);
-                t.Play();
+                t.Play(_cancellationToken);
             }
         }
 
@@ -94,11 +97,11 @@ namespace ZenExtended
                     // 1. We want all secondary transitions to play at once
                     // 2. We want to call dispose only after the primary transition has ended.
                     // ReSharper disable once MethodHasAsyncOverload
-                    t.PlayReverse();
+                    t.PlayReverse(_cancellationToken);
                 }
 
                 if (_options.PrimaryTransition != null)
-                    await _options.PrimaryTransition.PlayReverseAsync();
+                    await _options.PrimaryTransition.PlayReverseAsync(_cancellationToken);
             }
 
             _dispose();
