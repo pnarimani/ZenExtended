@@ -35,12 +35,16 @@ namespace ZenExtended
                 _options.CloseButton.onClick.AddListener(UniTask.UnityAction(OnCloseClicked));
         }
 
-        public async UniTask OnEnable()
+        public void OnEnable()
         {
-            // ReSharper disable MethodHasAsyncOverload
-            await UniTask.DelayFrame(1);
-
-            CaptureOriginalStates();
+            if (_originalStates.Count == 0)
+            {
+                // We don't want to call ForceUpdateCanvases when un-animated panel is showing up.
+                if (_options.PrimaryTransition != null)
+                    Canvas.ForceUpdateCanvases();
+                
+                CaptureOriginalStates();
+            }
 
             if (_options.PrimaryTransition != null)
                 _options.PrimaryTransition.Play();
@@ -53,7 +57,6 @@ namespace ZenExtended
                 RestoreTransformState(t);
                 t.Play();
             }
-            // ReSharper restore MethodHasAsyncOverload
         }
 
         public UniTask WaitUntilCloseClick()

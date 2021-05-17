@@ -33,7 +33,7 @@ namespace ZenExtended
 
         protected virtual void OnEnable()
         {
-            Logic.OnEnable().Forget();
+            Logic.OnEnable();
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace ZenExtended
 
         protected virtual void OnEnable()
         {
-            Logic.OnEnable().Forget();
+            Logic.OnEnable();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace ZenExtended
 
         protected virtual void OnEnable()
         {
-            Logic.OnEnable().Forget();
+            Logic.OnEnable();
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace ZenExtended
 
         protected virtual void OnEnable()
         {
-            Logic.OnEnable().Forget();
+            Logic.OnEnable();
         }
 
         /// <summary>
