@@ -31,14 +31,16 @@ namespace ZenExtended
         public void Awake()
         {
             ValidateTransitions();
-            CaptureOriginalStates();
             if (_options.CloseButton != null)
                 _options.CloseButton.onClick.AddListener(UniTask.UnityAction(OnCloseClicked));
         }
 
-        public void OnEnable()
+        public async UniTask OnEnable()
         {
-            RestoreTransformState(_options.PrimaryTransition);
+            // ReSharper disable MethodHasAsyncOverload
+            await UniTask.DelayFrame(1);
+
+            CaptureOriginalStates();
 
             if (_options.PrimaryTransition != null)
                 _options.PrimaryTransition.Play();
@@ -51,6 +53,7 @@ namespace ZenExtended
                 RestoreTransformState(t);
                 t.Play();
             }
+            // ReSharper restore MethodHasAsyncOverload
         }
 
         public UniTask WaitUntilCloseClick()
@@ -96,6 +99,12 @@ namespace ZenExtended
             }
 
             _dispose();
+
+            RestoreTransformState(_options.PrimaryTransition);
+            foreach (BaseTransition t in _options.SecondaryTransitions)
+            {
+                RestoreTransformState(t);
+            }
         }
 
         public void ValidateTransitions()
