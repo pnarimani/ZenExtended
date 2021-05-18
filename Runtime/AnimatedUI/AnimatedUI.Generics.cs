@@ -1,29 +1,30 @@
 #if OPEN_JUICE && UNITASK
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ZenExtended
 {
-    public class AnimatedPanel<T> : MonoSpawnable<T>, IAnimatedPanel
+    public class AnimatedUI<T> : MonoSpawnable<T>, IAnimatedUI
     {
-        [SerializeField] private AnimatedPanelOptions _animatedPanel;
+        [FormerlySerializedAs("_animatedPanel")] [SerializeField]
+        private AnimatedUIOptions _options;
 
-        private AnimatedPanelLogic? _logic;
+        private AnimatedUILogic? _logic;
 
-        private AnimatedPanelLogic Logic
+        private AnimatedUILogic Logic
         {
             get
             {
                 if (_logic == null)
-                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                    _logic = new AnimatedUILogic(gameObject, _options, Dispose);
                 return _logic.Value;
             }
         }
 
-        protected Button CloseButton => _animatedPanel?.CloseButton;
-        
+        protected Button CloseButton => _options?.CloseButton;
+
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -37,7 +38,7 @@ namespace ZenExtended
         }
 
         /// <summary>
-        /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
@@ -61,24 +62,25 @@ namespace ZenExtended
 #endif
     }
 
-    public class AnimatedPanel<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedPanel
+    public class AnimatedUI<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedUI
     {
-        [SerializeField] private AnimatedPanelOptions _animatedPanel;
+        [FormerlySerializedAs("_animatedPanel")] [SerializeField]
+        private AnimatedUIOptions _options;
 
-        private AnimatedPanelLogic? _logic;
+        private AnimatedUILogic? _logic;
 
-        private AnimatedPanelLogic Logic
+        private AnimatedUILogic Logic
         {
             get
             {
                 if (_logic == null)
-                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                    _logic = new AnimatedUILogic(gameObject, _options, Dispose);
                 return _logic.Value;
             }
         }
-        
-        protected Button CloseButton => _animatedPanel?.CloseButton;
-        
+
+        protected Button CloseButton => _options?.CloseButton;
+
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
@@ -92,7 +94,7 @@ namespace ZenExtended
         }
 
         /// <summary>
-        /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
@@ -107,7 +109,7 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
-        
+
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
@@ -116,27 +118,29 @@ namespace ZenExtended
 #endif
     }
 
-    public class AnimatedPanel<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedPanel
+    public class AnimatedUI<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedUI
     {
-        [SerializeField] private AnimatedPanelOptions _animatedPanel;
+        [FormerlySerializedAs("_animatedPanel")] [SerializeField]
+        private AnimatedUIOptions _options;
 
-        private AnimatedPanelLogic? _logic;
+        private AnimatedUILogic? _logic;
 
-        private AnimatedPanelLogic Logic
+        private AnimatedUILogic Logic
         {
             get
             {
                 if (_logic == null)
-                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                    _logic = new AnimatedUILogic(gameObject, _options, Dispose);
                 return _logic.Value;
             }
         }
-        protected Button CloseButton => _animatedPanel?.CloseButton;
+
+        protected Button CloseButton => _options?.CloseButton;
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+            _logic = new AnimatedUILogic(gameObject, _options, Dispose);
             Logic.Awake();
         }
 
@@ -146,7 +150,7 @@ namespace ZenExtended
         }
 
         /// <summary>
-        /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
@@ -161,7 +165,7 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
-        
+
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
@@ -170,27 +174,29 @@ namespace ZenExtended
 #endif
     }
 
-    public class AnimatedPanel<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedPanel
+    public class AnimatedUI<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedUI
     {
-        [SerializeField] private AnimatedPanelOptions _animatedPanel;
+        [FormerlySerializedAs("_animatedPanel")] [SerializeField]
+        private AnimatedUIOptions _options;
 
-        private AnimatedPanelLogic? _logic;
+        private AnimatedUILogic? _logic;
 
-        private AnimatedPanelLogic Logic
+        private AnimatedUILogic Logic
         {
             get
             {
                 if (_logic == null)
-                    _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+                    _logic = new AnimatedUILogic(gameObject, _options, Dispose);
                 return _logic.Value;
             }
         }
-        protected Button CloseButton => _animatedPanel?.CloseButton;
+
+        protected Button CloseButton => _options?.CloseButton;
         public float TransitionDuration => Logic.TransitionDuration;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedPanelLogic(gameObject, _animatedPanel, Dispose);
+            _logic = new AnimatedUILogic(gameObject, _options, Dispose);
             Logic.Awake();
         }
 
@@ -200,7 +206,7 @@ namespace ZenExtended
         }
 
         /// <summary>
-        /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TParma3, TClass}.Dispose"/>.
         /// </summary>
         public void CloseAnimated()
@@ -215,7 +221,7 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
-        
+
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {

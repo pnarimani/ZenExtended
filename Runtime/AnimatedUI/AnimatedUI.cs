@@ -9,11 +9,11 @@ using System;
 namespace ZenExtended
 {
     /// <summary>
-    /// A class that you can use if you don't want your main class to inherit from <see cref="AnimatedPanel{T}"/>.
+    /// A class that you can use if you don't want your main class to inherit from <see cref="AnimatedUI{T}"/>.
     /// (Or you are using SubContainers and you want this class to be part of composition).
     /// In that case, subscribe to <see cref="DisposeRequested"/> event from your main class and when the event is fired dispose the panel. 
     /// </summary>
-    public sealed class AnimatedPanel : AnimatedPanel<AnimatedPanel>
+    public sealed class AnimatedUI : AnimatedUI<AnimatedUI>
     {
         /// <summary>
         /// DisposeRequired is fired when all exit transitions have been played and now it's time to deactivate the panel.

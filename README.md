@@ -4,7 +4,7 @@ Utility classes for Zenject library to remove some of boilerplate code.
 # Table of Content
 - [Mono Spawnable](#monospawnable)
 - [Spawnable](#spawnable)
-- [Animated Panel](#animatedpanel)
+- [Animated UI](#animatedui)
 - [View Presenter Binder](#viewpresenterbinder)
 
 ## Installation
@@ -165,17 +165,17 @@ public virtual void Dispose();
 #### Example
 
 
-### AnimatedPanel
-Animated panels are available if you have `OpenJuice` and `UniTask` libraries.  
-`AnimatedPanel` will be disabled if you don't have either of those libraries.  
+### AnimatedUI
+Animated UI is available if you have `OpenJuice` and `UniTask` libraries.  
+`AnimatedUI` will be disabled if you don't have either of those libraries.  
 You can install these libraries from here:  
 * [Install Open Juice](https://github.com/yoyo-studio/openjuice#installation)
 * [Install UniTask](https://github.com/Cysharp/UniTask#install-via-git-url)
 
-`AnimatedPanel` is a base class that inherits from `MonoSpawnable`.  
+`AnimatedUI` is a base class that inherits from `MonoSpawnable`.  
 It adds support to play Intro and Outro animations using `OpenJuice` transitions for an UI panel.
 
-This is the API of `AnimatedPanel`:
+This is the API of `AnimatedUI`:
 ```c#
 // If you want to do more initialization logic in Awake, override this method.
 // Don't forget to call base.Awake() if you override this method. 
@@ -185,7 +185,7 @@ protected virtual void Awake();
 // Don't forget to call base.OnEnable() if you override this method.
 protected virtual void OnEnable();
 
-// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+// Closes the animated UI with playing outro animations. This has the same functionality has pressing the close button.
 // If you don't want to play outro animations, use Dispose().
 public void CloseAnimated();
 
@@ -193,24 +193,24 @@ public void CloseAnimated();
 public UniTask WaitUntilCloseClicked();
 ```
 
-You can use `AnimatedPanel` in two ways:  
+You can use `AnimatedUI` in two ways:  
 * Inheritance
 * Composition
 
 #### Inheritance
-Your main class for that panel should inherit from `AnimatedPanel` (`AnimatedPanel` has generic variations that support runtime parameters).
-Closing the panel is handled by`AnimatedPanel`. It defines a field named "Close Button". Drag and drop your Close button to this field. 
+Your main class for that panel should inherit from `AnimatedUI` (`AnimatedUI` has generic variations that support runtime parameters).
+Closing the panel is handled by`AnimatedUI`. It defines a field named "Close Button". Drag and drop your Close button to this field. 
 
 
 
 
 #### Composition
-If you don't want to inherit from `AnimatedPanel`,You need to create a sub-container.
+If you don't want to inherit from `AnimatedUI`,You need to create a sub-container.
 
 1. You need to Attach `GameObjectContext` to the root of your prefab/gameobject.
-2. Add `AnimatedPanel`(non-generic) to your prefab/gameobject.
-3. Install `AnimatedPanel` in your installer
-4. In your main class (which inherits from `MonoSpawnable`), listen to the `DisposeRequested` event of `AnimatedPanel`.
+2. Add `AnimatedUI`(non-generic) to your prefab/gameobject.
+3. Install `AnimatedUI` in your installer
+4. In your main class (which inherits from `MonoSpawnable`), listen to the `DisposeRequested` event of `AnimatedUI`.
 5. When the event is called, call the `Dispose()` method of the base class `MonoSpawnable`.
 
 #### Example

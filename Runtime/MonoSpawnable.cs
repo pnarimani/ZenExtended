@@ -11,12 +11,12 @@ namespace ZenExtended
 
 #if OPEN_JUICE && UNITASK
         [Inject]
-        private void GetAnimatedPanel([InjectOptional] AnimatedPanel animatedPanel)
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
         {
-            if (ReferenceEquals(animatedPanel, this))
+            if (ReferenceEquals(animatedUI, this))
                 return;
-            if (animatedPanel != null)
-                animatedPanel.DisposeRequested += Dispose;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
         }
 #endif
 
@@ -69,10 +69,10 @@ namespace ZenExtended
 
 #if OPEN_JUICE && UNITASK
         [Inject]
-        private void GetAnimatedPanel([InjectOptional] AnimatedPanel animatedPanel)
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
         {
-            if (animatedPanel != null)
-                animatedPanel.DisposeRequested += Dispose;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
         }
 #endif
 
@@ -125,10 +125,10 @@ namespace ZenExtended
 
 #if OPEN_JUICE && UNITASK
         [Inject]
-        private void GetAnimatedPanel([InjectOptional] AnimatedPanel animatedPanel)
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
         {
-            if (animatedPanel != null)
-                animatedPanel.DisposeRequested += Dispose;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
         }
 #endif
 
@@ -181,10 +181,10 @@ namespace ZenExtended
 
 #if OPEN_JUICE && UNITASK
         [Inject]
-        private void GetAnimatedPanel([InjectOptional] AnimatedPanel animatedPanel)
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
         {
-            if (animatedPanel != null)
-                animatedPanel.DisposeRequested += Dispose;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
         }
 #endif
 
@@ -237,10 +237,10 @@ namespace ZenExtended
 
 #if OPEN_JUICE && UNITASK
         [Inject]
-        private void GetAnimatedPanel([InjectOptional] AnimatedPanel animatedPanel)
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
         {
-            if (animatedPanel != null)
-                animatedPanel.DisposeRequested += Dispose;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
         }
 #endif
 

@@ -10,16 +10,16 @@ using YoYoStudio.OpenJuice;
 namespace ZenExtended
 {
     // Using this class as composition since we don't have multi inheritance in C# 
-    internal readonly struct AnimatedPanelLogic
+    internal readonly struct AnimatedUILogic
     {
         private readonly Queue<AutoResetUniTaskCompletionSource> _waitForClose;
         private readonly GameObject _gameObject;
         private readonly Dictionary<RectTransform, TransformInfo> _originalStates;
-        private readonly AnimatedPanelOptions _options;
+        private readonly AnimatedUIOptions _options;
         private readonly Action _dispose;
         private readonly CancellationToken _cancellationToken;
 
-        public AnimatedPanelLogic(GameObject gameObject, AnimatedPanelOptions options, Action dispose)
+        public AnimatedUILogic(GameObject gameObject, AnimatedUIOptions options, Action dispose)
         {
             _dispose = dispose;
             _options = options;
@@ -42,12 +42,12 @@ namespace ZenExtended
         {
             if (_originalStates.Count == 0)
             {
-                // We don't want to call ForceUpdateCanvases when un-animated panel is showing up.
+                // We don't want to call ForceUpdateCanvases when un-animated ui is showing up.
                 if (_options.PrimaryTransition != null)
                     Canvas.ForceUpdateCanvases();
-                
-                CaptureOriginalStates();
             }
+
+            CaptureOriginalStates();
 
             if (_options.PrimaryTransition != null)
                 _options.PrimaryTransition.Play(_cancellationToken);
@@ -55,6 +55,9 @@ namespace ZenExtended
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
                 if (t == null)
+                    continue;
+
+                if (!t.gameObject.activeSelf)
                     continue;
 
                 RestoreTransformState(t);
@@ -93,6 +96,9 @@ namespace ZenExtended
                     if (t == null)
                         continue;
 
+                    if (!t.gameObject.activeSelf)
+                        continue;
+
                     // We don't await here because:
                     // 1. We want all secondary transitions to play at once
                     // 2. We want to call dispose only after the primary transition has ended.
@@ -116,14 +122,14 @@ namespace ZenExtended
         public void ValidateTransitions()
         {
             if (_options.PrimaryTransition != null)
-                _options.PrimaryTransition.PlayOnEnable = false;
+                _options.PrimaryTransition.PlayOnEnable = !_options.PrimaryTransition.gameObject.activeSelf;
 
             if (_options.SecondaryTransitions != null)
             {
                 foreach (BaseTransition t in _options.SecondaryTransitions)
                 {
                     if (t != null)
-                        t.PlayOnEnable = false;
+                        t.PlayOnEnable = !t.gameObject.activeSelf;
                 }
             }
         }
@@ -138,9 +144,12 @@ namespace ZenExtended
         private void CaptureOriginalStates()
         {
             Add(_originalStates, _options.PrimaryTransition);
-            foreach (BaseTransition st in _options.SecondaryTransitions)
+            foreach (BaseTransition t in _options.SecondaryTransitions)
             {
-                Add(_originalStates, st);
+                if (!t.gameObject.activeSelf)
+                    continue;
+
+                Add(_originalStates, t);
             }
 
 

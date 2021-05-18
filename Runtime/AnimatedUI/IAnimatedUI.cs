@@ -4,12 +4,12 @@ using Cysharp.Threading.Tasks;
 
 namespace ZenExtended
 {
-    public interface IAnimatedPanel
+    public interface IAnimatedUI
     {
         float TransitionDuration { get; }
         
         /// <summary>
-        /// Closes the animated panel with playing outro animations. This has the same functionality has pressing the close button.
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// </summary>
         void CloseAnimated();
         
