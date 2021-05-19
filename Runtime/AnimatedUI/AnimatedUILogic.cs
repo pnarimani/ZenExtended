@@ -57,9 +57,6 @@ namespace ZenExtended
                 if (t == null)
                     continue;
 
-                if (!t.gameObject.activeSelf)
-                    continue;
-
                 RestoreTransformState(t);
                 t.Play(_cancellationToken);
             }
@@ -138,7 +135,11 @@ namespace ZenExtended
         {
             if (transition == null)
                 return;
-            _originalStates[(RectTransform) transition.transform].ApplyTo((RectTransform) transition.transform);
+
+            var casted = (RectTransform) transition.transform;
+            
+            if (_originalStates.ContainsKey(casted))
+                _originalStates[casted].ApplyTo(casted);
         }
 
         private void CaptureOriginalStates()
@@ -146,9 +147,6 @@ namespace ZenExtended
             Add(_originalStates, _options.PrimaryTransition);
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
-                if (!t.gameObject.activeSelf)
-                    continue;
-
                 Add(_originalStates, t);
             }
 

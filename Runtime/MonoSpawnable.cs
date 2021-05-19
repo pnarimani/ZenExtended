@@ -42,7 +42,7 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
+            if (this == null || gameObject == null)
                 return;
 
             if (_isPooled)
@@ -98,7 +98,7 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
+            if (this == null || gameObject == null)
                 return;
 
             if (_isPooled)
@@ -154,7 +154,7 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
+            if (this == null || gameObject == null)
                 return;
 
             if (_isPooled)
@@ -210,7 +210,7 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
+            if (this == null || gameObject == null)
                 return;
 
             if (_isPooled)
@@ -266,7 +266,7 @@ namespace ZenExtended
 
         public virtual void Dispose()
         {
-            if (this == null)
+            if (this == null || gameObject == null)
                 return;
 
             if (_isPooled)
