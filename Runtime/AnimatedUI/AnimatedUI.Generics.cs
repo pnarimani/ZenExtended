@@ -77,7 +77,7 @@ namespace ZenExtended
     public class AnimatedUI<TParam1, T> : MonoSpawnable<TParam1, T>, IAnimatedUI
     {
         [FormerlySerializedAs("_animatedPanel")] [SerializeField]
-        private AnimatedUIOptions _options;
+        private AnimatedUIOptions _options = new AnimatedUIOptions();
 
         private AnimatedUILogic? _logic;
 
@@ -145,7 +145,7 @@ namespace ZenExtended
     public class AnimatedUI<TParam1, TParam2, T> : MonoSpawnable<TParam1, TParam2, T>, IAnimatedUI
     {
         [FormerlySerializedAs("_animatedPanel")] [SerializeField]
-        private AnimatedUIOptions _options;
+        private AnimatedUIOptions _options = new AnimatedUIOptions();
 
         private AnimatedUILogic? _logic;
 
@@ -214,7 +214,7 @@ namespace ZenExtended
     public class AnimatedUI<TParam1, TParam2, TParam3, T> : MonoSpawnable<TParam1, TParam2, TParam3, T>, IAnimatedUI
     {
         [FormerlySerializedAs("_animatedPanel")] [SerializeField]
-        private AnimatedUIOptions _options;
+        private AnimatedUIOptions _options = new AnimatedUIOptions();
 
         private AnimatedUILogic? _logic;
 
