@@ -34,8 +34,6 @@ namespace ZenExtended
         public void Awake()
         {
             ValidateTransitions();
-            if (_options.CloseButton != null)
-                _options.CloseButton.onClick.AddListener(UniTask.UnityAction(OnCloseClicked));
         }
 
         public void OnEnable()
@@ -72,7 +70,7 @@ namespace ZenExtended
             return tcs.Task;
         }
 
-        public async UniTaskVoid OnCloseClicked()
+        public async UniTask OnCloseClicked()
         {
             while (_waitForClose.Count > 0)
             {

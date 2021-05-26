@@ -14,7 +14,7 @@ namespace ZenExtended
     [HideLabel]
 #endif
     [Serializable]
-    internal class AnimatedUIOptions
+    public class AnimatedUIOptions
     {
 #if ODIN_INSPECTOR
         [BoxGroup("Animated UI")]

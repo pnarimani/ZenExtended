@@ -9,7 +9,7 @@ namespace ZenExtended
     public class AnimatedUI<T> : MonoSpawnable<T>, IAnimatedUI
     {
         [FormerlySerializedAs("_animatedPanel")] [SerializeField]
-        private AnimatedUIOptions _options;
+        private AnimatedUIOptions _options = new AnimatedUIOptions();
 
         private AnimatedUILogic? _logic;
 
@@ -23,12 +23,15 @@ namespace ZenExtended
             }
         }
 
-        protected Button CloseButton => _options?.CloseButton;
-
+        public AnimatedUIOptions AnimatedUIOptions => _options;
         public float TransitionDuration => Logic.TransitionDuration;
+        protected Button CloseButton => _options?.CloseButton;
 
         protected virtual void Awake()
         {
+            if (_options.CloseButton != null)
+                _options.CloseButton.onClick.AddListener(CloseAnimated);
+
             Logic.Awake();
         }
 
@@ -41,9 +44,18 @@ namespace ZenExtended
         /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TClass}.Dispose"/>.
         /// </summary>
-        public void CloseAnimated()
+        public virtual void CloseAnimated()
         {
-            Logic.OnCloseClicked().Forget();
+            CloseAnimatedAsync().Forget();
+        }
+
+        /// <summary>
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TClass}.Dispose"/>.
+        /// </summary>
+        public virtual UniTask CloseAnimatedAsync()
+        {
+            return Logic.OnCloseClicked();
         }
 
         /// <summary>
@@ -79,12 +91,15 @@ namespace ZenExtended
             }
         }
 
-        protected Button CloseButton => _options?.CloseButton;
-
+        public AnimatedUIOptions AnimatedUIOptions => _options;
         public float TransitionDuration => Logic.TransitionDuration;
+        protected Button CloseButton => _options?.CloseButton;
 
         protected virtual void Awake()
         {
+            if (_options.CloseButton != null)
+                _options.CloseButton.onClick.AddListener(CloseAnimated);
+
             Logic.Awake();
         }
 
@@ -95,11 +110,20 @@ namespace ZenExtended
 
         /// <summary>
         /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
-        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam, TClass}.Dispose"/>.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TClass}.Dispose"/>.
         /// </summary>
-        public void CloseAnimated()
+        public virtual void CloseAnimated()
         {
-            Logic.OnCloseClicked().Forget();
+            CloseAnimatedAsync().Forget();
+        }
+
+        /// <summary>
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TClass}.Dispose"/>.
+        /// </summary>
+        public virtual UniTask CloseAnimatedAsync()
+        {
+            return Logic.OnCloseClicked();
         }
 
         /// <summary>
@@ -135,12 +159,15 @@ namespace ZenExtended
             }
         }
 
-        protected Button CloseButton => _options?.CloseButton;
+        public AnimatedUIOptions AnimatedUIOptions => _options;
         public float TransitionDuration => Logic.TransitionDuration;
+        protected Button CloseButton => _options?.CloseButton;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedUILogic(gameObject, _options, Dispose);
+            if (_options.CloseButton != null)
+                _options.CloseButton.onClick.AddListener(CloseAnimated);
+
             Logic.Awake();
         }
 
@@ -153,9 +180,18 @@ namespace ZenExtended
         /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TClass}.Dispose"/>.
         /// </summary>
-        public void CloseAnimated()
+        public virtual void CloseAnimated()
         {
-            Logic.OnCloseClicked().Forget();
+            CloseAnimatedAsync().Forget();
+        }
+
+        /// <summary>
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TClass}.Dispose"/>.
+        /// </summary>
+        public virtual UniTask CloseAnimatedAsync()
+        {
+            return Logic.OnCloseClicked();
         }
 
         /// <summary>
@@ -165,6 +201,7 @@ namespace ZenExtended
         {
             return Logic.WaitUntilCloseClick();
         }
+        
 
 #if UNITY_EDITOR
         protected virtual void OnValidate()
@@ -191,12 +228,15 @@ namespace ZenExtended
             }
         }
 
-        protected Button CloseButton => _options?.CloseButton;
+        public AnimatedUIOptions AnimatedUIOptions => _options;
         public float TransitionDuration => Logic.TransitionDuration;
+        protected Button CloseButton => _options?.CloseButton;
 
         protected virtual void Awake()
         {
-            _logic = new AnimatedUILogic(gameObject, _options, Dispose);
+            if (_options.CloseButton != null)
+                _options.CloseButton.onClick.AddListener(CloseAnimated);
+
             Logic.Awake();
         }
 
@@ -209,9 +249,18 @@ namespace ZenExtended
         /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
         /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TParma3, TClass}.Dispose"/>.
         /// </summary>
-        public void CloseAnimated()
+        public virtual void CloseAnimated()
         {
-            Logic.OnCloseClicked().Forget();
+            CloseAnimatedAsync().Forget();
+        }
+
+        /// <summary>
+        /// Closes the animated ui with playing outro animations. This has the same functionality has pressing the close button.
+        /// If you don't want to play outro animations, use <see cref="MonoSpawnable{TParam1, TParam2, TParma3, TClass}.Dispose"/>.
+        /// </summary>
+        public virtual UniTask CloseAnimatedAsync()
+        {
+            return Logic.OnCloseClicked();
         }
 
         /// <summary>
