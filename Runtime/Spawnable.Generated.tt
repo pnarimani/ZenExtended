@@ -1,0 +1,77 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".cs" #>
+
+using System;
+using UnityEngine;
+using Zenject;
+
+namespace ZenExtended
+{
+<#
+    for (int paramCount = 0; paramCount <= 10; paramCount++)
+    {
+        var range = Enumerable.Range(0, paramCount).ToList();
+        var tParams = string.Join(", ", range.Select(x => "TParam" + (x + 1)));
+        if (!string.IsNullOrEmpty(tParams))
+            tParams += ",";
+        var namedParams = string.Join(", ", range.Select(x => "TParam" + (x + 1) + " param" + (x + 1)));
+        var separator = paramCount > 0 ? "," : "";
+
+        var names = string.Join(", ", range.Select(x => "param" + (x + 1)));
+#>
+    public abstract class Spawnable<<#=tParams #> TClass> : IPoolable<<#=tParams #> IMemoryPool>, IDisposable
+    {
+        private IMemoryPool _pool;
+        private bool _isPooled;
+
+#if OPEN_JUICE && UNITASK
+        [Inject]
+        private void GetAnimatedUI([InjectOptional] AnimatedUI animatedUI)
+        {
+            if (ReferenceEquals(animatedUI, this))
+                return;
+            if (animatedUI != null)
+                animatedUI.DisposeRequested += Dispose;
+        }
+#endif
+
+        void IPoolable<<#=tParams #> IMemoryPool>.OnDespawned()
+        {
+            OnPoolDespawned();
+        }
+
+        void IPoolable<<#=tParams #> IMemoryPool>.OnSpawned(<#= namedParams + separator #> IMemoryPool pool)
+        {
+            _pool = pool;
+            _isPooled = true;
+            OnPoolSpawned(<#= names #>);
+        }
+
+        protected virtual void OnPoolSpawned(<#= namedParams #>)
+        {
+        }
+
+        protected virtual void OnPoolDespawned()
+        {
+        }
+
+        public virtual void Dispose()
+        {
+            if (_isPooled)
+            {
+                _pool?.Despawn(this);
+                _pool = null;
+            }
+        }
+
+        // ReSharper disable once ClassNeverInstantiated.Global
+        public class Factory : PlaceholderFactory<<#=tParams #> TClass>
+        {
+        }
+    }
+<#
+    }
+#>
+}
