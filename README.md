@@ -8,7 +8,7 @@ Utility classes for Zenject library to remove some of boilerplate code.
 - [View Presenter Binder](#viewpresenterbinder)
 
 ## Installation
-Add `https://github.com/mnarimani/Audoty.git` as git url package in Package Manager window.
+Add `https://github.com/mnarimani/ZenExtended.git` as git url package in Package Manager window.
 
 Or add this line to your `manifest.json` file:  
 `"com.mnarimani.zenextended": "https://github.com/mnarimani/ZenExtended.git"`
