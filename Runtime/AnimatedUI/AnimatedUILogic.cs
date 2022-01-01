@@ -1,8 +1,9 @@
-#if UNITASK && OPEN_JUICE
+#if UNITASK && (OPEN_JUICE || ANIMATION_SEQUENCER)
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using YoYoStudio.OpenJuice;
@@ -29,7 +30,11 @@ namespace ZenExtended
             _cancellationToken = gameObject.GetCancellationTokenOnDestroy();
         }
 
+#if OPEN_JUICE
         public float TransitionDuration => _options.PrimaryTransition != null ? _options.PrimaryTransition.Duration + _options.PrimaryTransition.Delay : 0;
+#else
+        public float TransitionDuration => _options.Sequence.PlayingSequence.Duration();
+#endif
 
         public void Awake()
         {
@@ -38,6 +43,7 @@ namespace ZenExtended
 
         public void OnEnable()
         {
+#if OPEN_JUICE
             if (_originalStates.Count == 0)
             {
                 // We don't want to call ForceUpdateCanvases when un-animated ui is showing up.
@@ -58,6 +64,7 @@ namespace ZenExtended
                 RestoreTransformState(t);
                 t.Play(_cancellationToken);
             }
+#endif
         }
 
         public UniTask WaitUntilCloseClick()
@@ -86,6 +93,7 @@ namespace ZenExtended
 
             if (_options.PlayReverseOnClose)
             {
+#if OPEN_JUICE
                 foreach (BaseTransition t in _options.SecondaryTransitions)
                 {
                     if (t == null)
@@ -103,19 +111,28 @@ namespace ZenExtended
 
                 if (_options.PrimaryTransition != null)
                     await _options.PrimaryTransition.PlayReverseAsync(_cancellationToken);
+#else
+                _options.Sequence.PlayingSequence.timeScale = _options.RewindTimescale;
+                _options.Sequence.PlayingSequence.Goto(TransitionDuration);
+                _options.Sequence.PlayingSequence.PlayBackwards();
+                await UniTask.Delay(TimeSpan.FromSeconds(TransitionDuration / _options.RewindTimescale));
+#endif
             }
 
             _dispose();
 
+#if OPEN_JUICE
             RestoreTransformState(_options.PrimaryTransition);
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
                 RestoreTransformState(t);
             }
+#endif
         }
 
         public void ValidateTransitions()
         {
+#if OPEN_JUICE
             if (_options.PrimaryTransition != null)
                 _options.PrimaryTransition.PlayOnEnable = !_options.PrimaryTransition.gameObject.activeSelf;
 
@@ -127,6 +144,7 @@ namespace ZenExtended
                         t.PlayOnEnable = !t.gameObject.activeSelf;
                 }
             }
+#endif
         }
 
         private void RestoreTransformState(BaseTransition transition)
@@ -135,13 +153,14 @@ namespace ZenExtended
                 return;
 
             var casted = (RectTransform) transition.transform;
-            
+
             if (_originalStates.ContainsKey(casted))
                 _originalStates[casted].ApplyTo(casted);
         }
 
         private void CaptureOriginalStates()
         {
+#if OPEN_JUICE
             Add(_originalStates, _options.PrimaryTransition);
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
@@ -158,6 +177,7 @@ namespace ZenExtended
                 if (!dict.ContainsKey(casted))
                     dict.Add(casted, new TransformInfo(casted));
             }
+#endif
         }
     }
 }

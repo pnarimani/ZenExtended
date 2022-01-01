@@ -1,4 +1,4 @@
-#if OPEN_JUICE && UNITASK
+#if (OPEN_JUICE || ANIMATION_SEQUENCER) && UNITASK
 
 using System;
 

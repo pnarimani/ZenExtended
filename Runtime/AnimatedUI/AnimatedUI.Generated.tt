@@ -3,7 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ output extension=".cs" #>
 
-#if OPEN_JUICE && UNITASK
+#if (OPEN_JUICE || ANIMATION_SEQUENCER) && UNITASK
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,7 +12,7 @@ using UnityEngine.UI;
 namespace ZenExtended
 {
 <#
-    for (int paramCount = 0; paramCount <= 10; paramCount++)
+    for (int paramCount = 0; paramCount <= 9; paramCount++)
     {
         var range = Enumerable.Range(0, paramCount);
         var tParams = string.Join(", ", range.Select(x => "TParam" + (x + 1)));

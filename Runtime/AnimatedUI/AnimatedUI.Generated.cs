@@ -1,5 +1,5 @@
 
-#if OPEN_JUICE && UNITASK
+#if (OPEN_JUICE || ANIMATION_SEQUENCER) && UNITASK
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;

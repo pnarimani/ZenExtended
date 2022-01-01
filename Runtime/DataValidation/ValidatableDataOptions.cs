@@ -13,9 +13,7 @@ using UnityEditor;
 
 namespace ZenExtended.DataValidation
 {
-#if ODIN_INSPECTOR
     [BoxGroup]
-#endif
     [Serializable]
     public class ValidatableDataOptions : IValidatableData
     {
@@ -23,30 +21,24 @@ namespace ZenExtended.DataValidation
 
         [SerializeField] private bool _validatePackageName;
 
-#if ODIN_INSPECTOR || NAUGHTY_ATTRIBUTES
         [ShowIf(nameof(_validatePackageName))]
-#endif
         [SerializeField]
         private string _targetPackageName;
 
         [SerializeField] private bool _validatePlatform;
 
-#if ODIN_INSPECTOR || NAUGHTY_ATTRIBUTES
         [ShowIf(nameof(_validatePlatform))]
         [ValueDropdown("TargetPlatformOptions")]
-#endif
         [SerializeField]
         private string _targetPlatform;
 
         [SerializeField] private bool _checkScriptingDefineSymbols;
 
-#if ODIN_INSPECTOR || NAUGHTY_ATTRIBUTES
         [ShowIf(nameof(_checkScriptingDefineSymbols))]
-#endif
         [SerializeField]
         private string[] _scriptingDefineSymbols;
 
-#if UNITY_EDITOR && (ODIN_INSPECTOR || NAUGHTY_ATTRIBUTES)
+#if UNITY_EDITOR
         private string[] TargetPlatformOptions => Enum.GetNames(typeof(BuildTargetGroup));
 #endif
 

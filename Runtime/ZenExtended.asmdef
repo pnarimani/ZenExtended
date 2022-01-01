@@ -5,7 +5,8 @@
         "Zenject",
         "UniTask",
         "Juicer.Core",
-        "NaughtyAttributes.Core"
+        "NaughtyAttributes.Core",
+        "BrunoMikoski.AnimationSequencer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -29,6 +30,11 @@
             "name": "com.dbrizov.naughtyattributes",
             "expression": "",
             "define": "NAUGHTY_ATTRIBUTES"
+        },
+        {
+            "name": "com.brunomikoski.animationsequencer",
+            "expression": "",
+            "define": "ANIMATION_SEQUENCER"
         }
     ],
     "noEngineReferences": false

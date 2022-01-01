@@ -1,4 +1,4 @@
-#if UNITASK && OPEN_JUICE
+#if UNITASK && (OPEN_JUICE || ANIMATION_SEQUENCER)
 
 using UnityEngine;
 

@@ -1,5 +1,6 @@
-#if OPEN_JUICE && UNITASK
+#if (OPEN_JUICE || ANIMATION_SEQUENCER) && UNITASK
 using System;
+using BrunoMikoski.AnimationSequencer;
 using UnityEngine.UI;
 using YoYoStudio.OpenJuice;
 
@@ -9,32 +10,31 @@ using Sirenix.OdinInspector;
 
 namespace ZenExtended
 {
-#if ODIN_INSPECTOR
     [InlineProperty]
     [HideLabel]
-#endif
     [Serializable]
     public class AnimatedUIOptions
     {
-#if ODIN_INSPECTOR
         [BoxGroup("Animated UI")]
-#endif
         public Button CloseButton;
 
-#if ODIN_INSPECTOR
         [BoxGroup("Animated UI")]
-#endif
         public bool PlayReverseOnClose = true;
-
-#if ODIN_INSPECTOR
+        
         [BoxGroup("Animated UI")]
-#endif
+        [ShowIf(nameof(PlayReverseOnClose))]
+        public float RewindTimescale = 2;
+
+#if OPEN_JUICE
+        [BoxGroup("Animated UI")]
         public BaseTransition PrimaryTransition;
 
-#if ODIN_INSPECTOR
         [BoxGroup("Animated UI")]
-#endif
         public BaseTransition[] SecondaryTransitions;
+#else
+        [BoxGroup("Animated UI")] 
+        public AnimationSequencerController Sequence;
+#endif
     }
 }
 #endif
