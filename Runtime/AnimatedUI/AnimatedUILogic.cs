@@ -5,8 +5,10 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+
+#if OPEN_JUICE
 using YoYoStudio.OpenJuice;
+#endif
 
 namespace ZenExtended
 {
@@ -147,6 +149,7 @@ namespace ZenExtended
 #endif
         }
 
+#if OPEN_JUICE
         private void RestoreTransformState(BaseTransition transition)
         {
             if (transition == null)
@@ -160,7 +163,6 @@ namespace ZenExtended
 
         private void CaptureOriginalStates()
         {
-#if OPEN_JUICE
             Add(_originalStates, _options.PrimaryTransition);
             foreach (BaseTransition t in _options.SecondaryTransitions)
             {
@@ -177,8 +179,8 @@ namespace ZenExtended
                 if (!dict.ContainsKey(casted))
                     dict.Add(casted, new TransformInfo(casted));
             }
-#endif
         }
+#endif
     }
 }
 #endif

@@ -2,7 +2,11 @@
 using System;
 using BrunoMikoski.AnimationSequencer;
 using UnityEngine.UI;
+
+#if OPEN_JUICE
 using YoYoStudio.OpenJuice;
+
+#endif
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
