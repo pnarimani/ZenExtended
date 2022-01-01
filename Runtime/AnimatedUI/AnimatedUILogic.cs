@@ -6,6 +6,11 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
+#if ANIMATION_SEQUENCER
+using BrunoMikoski.AnimationSequencer;
+
+#endif
+
 #if OPEN_JUICE
 using YoYoStudio.OpenJuice;
 #endif
@@ -41,6 +46,11 @@ namespace ZenExtended
         public void Awake()
         {
             ValidateTransitions();
+
+#if ANIMATION_SEQUENCER
+            if (_options.Sequence == null)
+                _options.Sequence = _gameObject.GetComponent<AnimationSequencerController>();
+#endif
         }
 
         public void OnEnable()
